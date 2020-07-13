@@ -8,28 +8,39 @@ class SignInPage extends StatelessWidget {
         title: Text("Time Tracker"),
         elevation: 2.0,
       ),
-      body: Container(
-        width: double.infinity,
-        color: Colors.yellow,
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Container(
+      body: buildContents(),
+    );
+  }
+
+  Widget buildContents() {
+    return Container(
+      width: double.infinity,
+      color: Colors.yellow,
+      child: Column(
+        // mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          Container(
+            color: Colors.orange,
+            width: 100.0,
+            height: 100,
+          ),
+          Container(
+            color: Colors.white,
+            child: SizedBox(
               width: 100.0,
               height: 100,
-              color: Colors.orange,
-              child: SizedBox(),
             ),
-            Container(
+          ),
+          Container(
+            color: Colors.green,
+            child: SizedBox(
               width: 100.0,
               height: 100,
-              color: Colors.green,
-              child: SizedBox(),
             ),
-            Text("Sign In"),
-          ],
-        ),
+          ),
+          Text("Sign In"),
+        ],
       ),
     );
   }
