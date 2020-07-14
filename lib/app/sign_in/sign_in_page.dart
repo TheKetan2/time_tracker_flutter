@@ -37,35 +37,70 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 18.0,
           ),
-          SignInButton(
-            text: "Sign in with Google",
+          CustomRaisedButton(
             color: Colors.white,
-            onPressed: () {
-              print("Google.");
-            },
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.asset("img/google-logo.png"),
+                Text("Sign in with Google"),
+                Container()
+              ],
+            ),
           ),
           SizedBox(
-            height: 8.0,
+            height: 18.0,
           ),
-          SignInButton(
-            text: "Sign in Facebook",
-            textColor: Colors.white,
+          CustomRaisedButton(
             color: Color(0xff334d92),
-            onPressed: () {
-              print("Facebook.");
-            },
+            onPressed: () {},
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.asset("img/facebook-logo.png"),
+                Text(
+                  "Sign in with Facebook",
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                Container()
+              ],
+            ),
           ),
           SizedBox(
             height: 8.0,
           ),
-          SignInButton(
-            text: "Sign in with Email",
-            textColor: Colors.white,
-            color: Colors.teal,
-            onPressed: () {
-              print("Facebook.");
-            },
-          ),
+          // SignInButton(
+          //   text: "Sign in with Google",
+          //   color: Colors.white,
+          //   onPressed: () {
+          //     print("Google.");
+          //   },
+          // ),
+          // SizedBox(
+          //   height: 8.0,
+          // ),
+          // SignInButton(
+          //   text: "Sign in Facebook",
+          //   textColor: Colors.white,
+          //   color: Color(0xff334d92),
+          //   onPressed: () {
+          //     print("Facebook.");
+          //   },
+          // ),
+          // SizedBox(
+          //   height: 8.0,
+          // ),
+          // SignInButton(
+          //   text: "Sign in with Email",
+          //   textColor: Colors.white,
+          //   color: Colors.teal,
+          //   onPressed: () {
+          //     print("Facebook.");
+          //   },
+          // ),
           SizedBox(
             height: 8.0,
           ),
