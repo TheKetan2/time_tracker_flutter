@@ -7,7 +7,9 @@ class SignInButton extends CustomRaisedButton {
     Color color,
     Color textColor,
     VoidCallback onPressed,
+    double height = 50,
   }) : super(
+          height: height,
           child: Text(
             text,
             style: TextStyle(
