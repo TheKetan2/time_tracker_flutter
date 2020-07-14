@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../custom_raised_buttons/custom_raised_button.dart';
+
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -37,23 +39,27 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 8.0,
           ),
-          RaisedButton(
-            color: Colors.white,
-            onPressed: () {},
+          CustomRaisedButton(
             child: Text(
-              "Sign in with",
+              "Sign in with Google",
               style: TextStyle(
                 color: Colors.black87,
-                fontSize: 15.0,
               ),
             ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  10.0,
-                ),
+            onPressed: () {
+              print("Google.");
+            },
+          ),
+          CustomRaisedButton(
+            child: Text(
+              "Sign in with Facebook",
+              style: TextStyle(
+                color: Colors.black87,
               ),
             ),
+            onPressed: () {
+              print("Facebook.");
+            },
           )
         ],
       ),
