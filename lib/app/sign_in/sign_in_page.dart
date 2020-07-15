@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.dart';
+import 'package:time_tracker_flutter/app/custom_raised_buttons/social_sign_in_button.dart';
 
 import '../custom_raised_buttons/custom_raised_button.dart';
 
@@ -52,6 +53,11 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 18.0,
           ),
+          SocialSignInButton(
+            text: "Sign in with Google",
+            assetName: "img/facebook-logo.png",
+            onPressed: () {},
+          ),
           CustomRaisedButton(
             color: Color(0xff334d92),
             onPressed: () {},
@@ -72,35 +78,6 @@ class SignInPage extends StatelessWidget {
           SizedBox(
             height: 8.0,
           ),
-          // SignInButton(
-          //   text: "Sign in with Google",
-          //   color: Colors.white,
-          //   onPressed: () {
-          //     print("Google.");
-          //   },
-          // ),
-          // SizedBox(
-          //   height: 8.0,
-          // ),
-          // SignInButton(
-          //   text: "Sign in Facebook",
-          //   textColor: Colors.white,
-          //   color: Color(0xff334d92),
-          //   onPressed: () {
-          //     print("Facebook.");
-          //   },
-          // ),
-          // SizedBox(
-          //   height: 8.0,
-          // ),
-          // SignInButton(
-          //   text: "Sign in with Email",
-          //   textColor: Colors.white,
-          //   color: Colors.teal,
-          //   onPressed: () {
-          //     print("Facebook.");
-          //   },
-          // ),
           SizedBox(
             height: 8.0,
           ),
