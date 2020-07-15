@@ -54,26 +54,11 @@ class SignInPage extends StatelessWidget {
             height: 18.0,
           ),
           SocialSignInButton(
-            text: "Sign in with Google",
+            color: Color(0xff334d92),
+            textColor: Colors.white,
+            text: "Sign in with Facebook",
             assetName: "img/facebook-logo.png",
             onPressed: () {},
-          ),
-          CustomRaisedButton(
-            color: Color(0xff334d92),
-            onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Image.asset("img/facebook-logo.png"),
-                Text(
-                  "Sign in with Facebook",
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-                Container()
-              ],
-            ),
           ),
           SizedBox(
             height: 8.0,
