@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/custom_raised_buttons/social_sign_in_button.dart';
-
-import '../custom_raised_buttons/custom_raised_button.dart';
 
 class SignInPage extends StatelessWidget {
   @override
@@ -15,6 +15,11 @@ class SignInPage extends StatelessWidget {
       body: _buildContents(),
       backgroundColor: Colors.grey[200],
     );
+  }
+
+  Future<void> _signInAnnonymously() async {
+    final authResult = await FirebaseAuth.instance.signInAnonymously();
+    print("${authResult.user.uid}");
   }
 
   Widget _buildContents() {
@@ -94,6 +99,7 @@ class SignInPage extends StatelessWidget {
             color: Colors.lime[300],
             onPressed: () {
               print("Facebook.");
+              _signInAnnonymously();
             },
           ),
         ],
