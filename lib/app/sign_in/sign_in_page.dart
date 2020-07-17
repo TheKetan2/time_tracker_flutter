@@ -18,8 +18,12 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInAnnonymously() async {
-    final authResult = await FirebaseAuth.instance.signInAnonymously();
-    print("${authResult.user.uid}");
+    try {
+      final authResult = await FirebaseAuth.instance.signInAnonymously();
+      print("${authResult.user.uid}");
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   Widget _buildContents() {
