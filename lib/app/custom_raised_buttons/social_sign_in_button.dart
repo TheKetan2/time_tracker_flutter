@@ -4,12 +4,12 @@ import 'package:time_tracker_flutter/app/custom_raised_buttons/custom_raised_but
 
 class SocialSignInButton extends CustomRaisedButton {
   SocialSignInButton({
-    String text,
+    @required String text,
     Color color,
     Color textColor,
     VoidCallback onPressed,
     double height = 50,
-    String assetName,
+    @required String assetName,
   }) : super(
           height: height,
           child: Row(

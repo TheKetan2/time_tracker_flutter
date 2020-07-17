@@ -3,7 +3,7 @@ import 'package:time_tracker_flutter/app/custom_raised_buttons/custom_raised_but
 
 class SignInButton extends CustomRaisedButton {
   SignInButton({
-    String text,
+    @required String text,
     Color color,
     Color textColor,
     VoidCallback onPressed,
