@@ -20,6 +20,7 @@ class SocialSignInButton extends CustomRaisedButton {
                 text,
                 style: TextStyle(
                   color: textColor,
+                  fontSize: 15.0,
                 ),
               ),
               Container()

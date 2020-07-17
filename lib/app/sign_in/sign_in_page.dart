@@ -35,23 +35,31 @@ class SignInPage extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
+
+          // CustomRaisedButton(
+          //   color: Colors.white,
+          //   onPressed: () {},
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: <Widget>[
+          //       Image.asset("img/google-logo.png"),
+          //       Text("Sign in with Google"),
+          //       Container()
+          //     ],
+          //   ),
+          // ),
           SizedBox(
-            height: 18.0,
+            height: 8.0,
           ),
-          CustomRaisedButton(
+          SocialSignInButton(
             color: Colors.white,
+            textColor: Colors.black87,
+            text: "Sign in with Facebook",
+            assetName: "img/google-logo.png",
             onPressed: () {},
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Image.asset("img/google-logo.png"),
-                Text("Sign in with Google"),
-                Container()
-              ],
-            ),
           ),
           SizedBox(
-            height: 18.0,
+            height: 8.0,
           ),
           SocialSignInButton(
             color: Color(0xff334d92),
@@ -62,6 +70,12 @@ class SignInPage extends StatelessWidget {
           ),
           SizedBox(
             height: 8.0,
+          ),
+          SignInButton(
+            text: "Sign in with email",
+            color: Colors.teal[700],
+            textColor: Colors.white,
+            onPressed: () {},
           ),
           SizedBox(
             height: 8.0,
