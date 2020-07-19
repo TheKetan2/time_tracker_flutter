@@ -5,6 +5,13 @@ import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.da
 import 'package:time_tracker_flutter/app/custom_raised_buttons/social_sign_in_button.dart';
 
 class SignInPage extends StatelessWidget {
+  final Function(FirebaseUser) onSignIn;
+
+  const SignInPage({
+    Key key,
+    @required this.onSignIn,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +28,7 @@ class SignInPage extends StatelessWidget {
     try {
       final authResult = await FirebaseAuth.instance.signInAnonymously();
       print("${authResult.user.uid}");
+      onSignIn(authResult.user);
     } catch (e) {
       print(e.toString());
     }
