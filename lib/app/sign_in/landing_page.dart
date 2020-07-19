@@ -9,8 +9,19 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   FirebaseUser _user;
+  void _updateUser(FirebaseUser user) {
+    print(user.uid);
+    setState(() {
+      _user = user;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return _user == null ? SignInPage() : Container();
+    return _user == null
+        ? SignInPage(
+            onSignIn: _updateUser,
+          )
+        : Container();
   }
 }
