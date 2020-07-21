@@ -11,7 +11,7 @@ class LandingPage extends StatefulWidget {
 class _LandingPageState extends State<LandingPage> {
   FirebaseUser _user;
   void _updateUser(FirebaseUser user) {
-    print(user.uid);
+    print(user);
     setState(() {
       _user = user;
     });
@@ -23,6 +23,8 @@ class _LandingPageState extends State<LandingPage> {
         ? SignInPage(
             onSignIn: _updateUser,
           )
-        : HomePage();
+        : HomePage(
+            onSignOut: () => _updateUser(null),
+          );
   }
 }
