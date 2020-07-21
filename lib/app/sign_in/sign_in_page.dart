@@ -71,7 +71,7 @@ class SignInPage extends StatelessWidget {
           SocialSignInButton(
             color: Colors.white,
             textColor: Colors.black87,
-            text: "Sign in with Facebook",
+            text: "Sign in with Google",
             assetName: "img/google-logo.png",
             onPressed: () {},
           ),
