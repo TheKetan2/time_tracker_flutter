@@ -10,6 +10,15 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   FirebaseUser _user;
+
+  @override
+  void initState() async {
+    // TODO: implement initState
+
+    super.initState();
+    FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  }
+
   void _updateUser(FirebaseUser user) {
     print(user);
     setState(() {
