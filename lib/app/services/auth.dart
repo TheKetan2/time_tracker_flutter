@@ -1,14 +1,31 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+
+class User {
+  final String uid;
+
+  User({@required this.uid});
+}
 
 class Auth {
-  Future<FirebaseUser> currentUser() async {
-    return await FirebaseAuth.instance.currentUser();
+  final _firebaseAuth = FirebaseAuth.instance;
+
+  User _userFromFirebase(FirebaseUser user) {
+    if (user == null) return null;
+    return User(
+      uid: user.uid,
+    );
   }
 
-  Future<FirebaseUser> signInAnnonymously() async {
+  Future<User> currentUser() async {
+    final user = await _firebaseAuth.currentUser();
+    return _userFromFirebase(user);
+  }
+
+  Future<User> signInAnnonymously() async {
     try {
-      AuthResult authResult = await FirebaseAuth.instance.signInAnonymously();
-      return authResult.user;
+      AuthResult authResult = await _firebaseAuth.signInAnonymously();
+      return _userFromFirebase(authResult.user);
     } catch (e) {
       print("Error: " + e);
       return null;
@@ -17,7 +34,7 @@ class Auth {
 
   Future<void> signOut() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await _firebaseAuth.signOut();
     } catch (e) {
       print(e);
     }
