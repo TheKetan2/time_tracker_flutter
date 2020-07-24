@@ -7,7 +7,13 @@ class User {
   User({@required this.uid});
 }
 
-class Auth {
+abstract class AuthBase {
+  Future<User> currentUser();
+  Future<User> signInAnnonymously();
+  Future<void> signOut();
+}
+
+class Auth implements AuthBase {
   final _firebaseAuth = FirebaseAuth.instance;
 
   User _userFromFirebase(FirebaseUser user) {
@@ -17,11 +23,13 @@ class Auth {
     );
   }
 
+  @override
   Future<User> currentUser() async {
     final user = await _firebaseAuth.currentUser();
     return _userFromFirebase(user);
   }
 
+  @override
   Future<User> signInAnnonymously() async {
     try {
       AuthResult authResult = await _firebaseAuth.signInAnonymously();
@@ -32,11 +40,8 @@ class Auth {
     }
   }
 
+  @override
   Future<void> signOut() async {
-    try {
-      await _firebaseAuth.signOut();
-    } catch (e) {
-      print(e);
-    }
+    await _firebaseAuth.signOut();
   }
 }

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:time_tracker_flutter/app/services/auth.dart';
 import 'package:time_tracker_flutter/app/sign_in/landing_page.dart';
 // import 'package:time_tracker_flutter/app/sign_in/sign_in_page.dart';
 
@@ -7,6 +8,10 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final AuthBase auth;
+
+  const MyApp({Key key, this.auth}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +19,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
-      home: LandingPage(),
+      home: LandingPage(
+        auth: Auth(),
+      ),
     );
   }
 }
