@@ -13,7 +13,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // Todo: this method must be synchronous
     getUser();
     super.initState();
   }
@@ -21,9 +21,7 @@ class _LandingPageState extends State<LandingPage> {
   Future<void> getUser() async {
     FirebaseUser user = await FirebaseAuth.instance.currentUser();
     print(user);
-    setState(() {
-      _user = user;
-    });
+    _updateUser(user);
   }
 
   void _updateUser(FirebaseUser user) {

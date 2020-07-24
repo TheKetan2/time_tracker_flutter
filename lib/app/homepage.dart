@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
           FlatButton(
             onPressed: _signOut,
             child: Text(
-              "Log Out",
+              "Logout",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
