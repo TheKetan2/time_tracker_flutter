@@ -23,6 +23,9 @@ class _LandingPageState extends State<LandingPage> {
     // Todo: this method must be synchronous
     _checkCurrentUser();
     super.initState();
+    widget.auth.onAuthStateChanged.listen((user) {
+      print("user: ${user?.uid}");
+    });
   }
 
   Future<void> _checkCurrentUser() async {
