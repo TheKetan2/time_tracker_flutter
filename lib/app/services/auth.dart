@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class User {
   final String uid;
@@ -51,5 +53,28 @@ class Auth implements AuthBase {
   @override
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
+  }
+
+  Future<User> signInWithGoogle() async {
+    GoogleSignIn googleSignIn = GoogleSignIn();
+    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    if (googleSignInAccount != null) {
+      GoogleSignInAuthentication googleAuth =
+          await googleSignInAccount.authentication;
+
+      final authResult = await _firebaseAuth.signInWithCredential(
+        GoogleAuthProvider.getCredential(
+          idToken: googleAuth.idToken,
+          accessToken: googleAuth.accessToken,
+        ),
+      );
+
+      return _userFromFirebase(authResult.user);
+    } else {
+      throw PlatformException(
+        code: "ERROR_ABORTED_BY_USER",
+        message: "SIGN IN ABORTED",
+      );
+    }
   }
 }
