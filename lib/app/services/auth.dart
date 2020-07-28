@@ -56,24 +56,29 @@ class Auth implements AuthBase {
   }
 
   Future<User> signInWithGoogle() async {
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
+    final googleSignIn = GoogleSignIn();
+    final googleSignInAccount = await googleSignIn.signIn();
     if (googleSignInAccount != null) {
-      GoogleSignInAuthentication googleAuth =
-          await googleSignInAccount.authentication;
+      final googleAuth = await googleSignInAccount.authentication;
+      if (googleAuth.accessToken != null && googleAuth.idToken != null) {
+        final authResult = await _firebaseAuth.signInWithCredential(
+          GoogleAuthProvider.getCredential(
+            idToken: googleAuth.idToken,
+            accessToken: googleAuth.accessToken,
+          ),
+        );
 
-      final authResult = await _firebaseAuth.signInWithCredential(
-        GoogleAuthProvider.getCredential(
-          idToken: googleAuth.idToken,
-          accessToken: googleAuth.accessToken,
-        ),
-      );
-
-      return _userFromFirebase(authResult.user);
+        return _userFromFirebase(authResult.user);
+      } else {
+        throw PlatformException(
+          code: "ERROR_MISSING_GOOGLE_AUTH_TOKEN",
+          message: "MISSING GOOGLE AUTH TOKEN",
+        );
+      }
     } else {
       throw PlatformException(
         code: "ERROR_ABORTED_BY_USER",
-        message: "SIGN IN ABORTED",
+        message: "SIGN IN ABORTED BY USER",
       );
     }
   }
