@@ -34,6 +34,16 @@ class SignInPage extends StatelessWidget {
     }
   }
 
+  Future<void> _signInWithGoogle() async {
+    try {
+      await auth.signInWithGoogle();
+      // print("${authResult.user.uid}");
+      // onSignIn(user);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   Widget _buildContents() {
     return Padding(
       // width: double.infinity,
@@ -52,19 +62,6 @@ class SignInPage extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-
-          // CustomRaisedButton(
-          //   color: Colors.white,
-          //   onPressed: () {},
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: <Widget>[
-          //       Image.asset("img/google-logo.png"),
-          //       Text("Sign in with Google"),
-          //       Container()
-          //     ],
-          //   ),
-          // ),
           SizedBox(
             height: 8.0,
           ),
@@ -73,7 +70,7 @@ class SignInPage extends StatelessWidget {
             textColor: Colors.black87,
             text: "Sign in with Google",
             assetName: "img/google-logo.png",
-            onPressed: () {},
+            onPressed: _signInWithGoogle,
           ),
           SizedBox(
             height: 8.0,
