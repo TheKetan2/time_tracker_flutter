@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 
 import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.dart';
@@ -19,7 +21,7 @@ class SignInPage extends StatelessWidget {
         title: Text("Time Tracker"),
         elevation: 2.0,
       ),
-      body: _buildContents(),
+      body: _buildContents(context),
       backgroundColor: Colors.grey[200],
     );
   }
@@ -48,7 +50,7 @@ class SignInPage extends StatelessWidget {
     }
   }
 
-  Widget _buildContents() {
+  Widget _buildContents(BuildContext context) {
     return Padding(
       // width: double.infinity,
       // color: Colors.yellow,
@@ -93,7 +95,7 @@ class SignInPage extends StatelessWidget {
             text: "Sign in with email",
             color: Colors.teal[700],
             textColor: Colors.white,
-            onPressed: () => {},
+            onPressed: () => _signInWithEmail(context),
           ),
           SizedBox(
             height: 8.0,
