@@ -34,6 +34,10 @@ class SignInPage extends StatelessWidget {
     }
   }
 
+  void _signInWithEmail(BuildContext context) {
+    //TODO: show email of user
+  }
+
   Future<void> _signInWithGoogle() async {
     try {
       await auth.signInWithGoogle();
@@ -72,16 +76,16 @@ class SignInPage extends StatelessWidget {
             assetName: "img/google-logo.png",
             onPressed: _signInWithGoogle,
           ),
-          SizedBox(
-            height: 8.0,
-          ),
-          SocialSignInButton(
-            color: Color(0xff334d92),
-            textColor: Colors.white,
-            text: "Sign in with Facebook",
-            assetName: "img/facebook-logo.png",
-            onPressed: () {},
-          ),
+          // SizedBox(
+          //   height: 8.0,
+          // ),
+          // SocialSignInButton(
+          //   color: Color(0xff334d92),
+          //   textColor: Colors.white,
+          //   text: "Sign in with Facebook",
+          //   assetName: "img/facebook-logo.png",
+          //   onPressed: () {},
+          // ),
           SizedBox(
             height: 8.0,
           ),
@@ -89,7 +93,7 @@ class SignInPage extends StatelessWidget {
             text: "Sign in with email",
             color: Colors.teal[700],
             textColor: Colors.white,
-            onPressed: () {},
+            onPressed: () => {},
           ),
           SizedBox(
             height: 8.0,
@@ -99,18 +103,18 @@ class SignInPage extends StatelessWidget {
             style: TextStyle(fontSize: 14.0, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
-          // SizedBox(
-          //   height: 8.0,
-          // ),
-          // SignInButton(
-          //   text: "Go Annonymous",
-          //   textColor: Colors.black87,
-          //   color: Colors.lime[300],
-          //   onPressed: () {
-          //     print("Facebook.");
-          //     _signInAnnonymously();
-          //   },
-          // ),
+          SizedBox(
+            height: 8.0,
+          ),
+          SignInButton(
+            text: "Go Annonymous",
+            textColor: Colors.black87,
+            color: Colors.lime[300],
+            onPressed: () {
+              print("Facebook.");
+              _signInAnnonymously();
+            },
+          ),
         ],
       ),
     );
