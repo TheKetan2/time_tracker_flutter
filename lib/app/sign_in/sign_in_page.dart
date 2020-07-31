@@ -99,18 +99,18 @@ class SignInPage extends StatelessWidget {
             style: TextStyle(fontSize: 14.0, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: 8.0,
-          ),
-          SignInButton(
-            text: "Go Annonymous",
-            textColor: Colors.black87,
-            color: Colors.lime[300],
-            onPressed: () {
-              print("Facebook.");
-              _signInAnnonymously();
-            },
-          ),
+          // SizedBox(
+          //   height: 8.0,
+          // ),
+          // SignInButton(
+          //   text: "Go Annonymous",
+          //   textColor: Colors.black87,
+          //   color: Colors.lime[300],
+          //   onPressed: () {
+          //     print("Facebook.");
+          //     _signInAnnonymously();
+          //   },
+          // ),
         ],
       ),
     );
