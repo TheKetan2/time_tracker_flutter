@@ -1,10 +1,9 @@
-import 'dart:js';
-
 import 'package:flutter/material.dart';
 
 import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/custom_raised_buttons/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
+import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
 
 class SignInPage extends StatelessWidget {
   final AuthBase auth;
@@ -38,6 +37,10 @@ class SignInPage extends StatelessWidget {
 
   void _signInWithEmail(BuildContext context) {
     //TODO: show email of user
+    Navigator.of(context).push(MaterialPageRoute<void>(
+      fullscreenDialog: true,
+      builder: (context) => EmailSignInPage(),
+    ));
   }
 
   Future<void> _signInWithGoogle() async {
@@ -84,6 +87,7 @@ class SignInPage extends StatelessWidget {
           // SocialSignInButton(
           //   color: Color(0xff334d92),
           //   textColor: Colors.white,
+
           //   text: "Sign in with Facebook",
           //   assetName: "img/facebook-logo.png",
           //   onPressed: () {},
