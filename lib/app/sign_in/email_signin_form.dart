@@ -9,6 +9,9 @@ class EmailSignInForm extends StatelessWidget {
           hintText: "username@email.com",
         ),
       ),
+      SizedBox(
+        height: 8,
+      ),
       TextField(
         decoration: InputDecoration(
           labelText: "Password",
@@ -16,6 +19,20 @@ class EmailSignInForm extends StatelessWidget {
         ),
         obscureText: true,
       ),
+      SizedBox(
+        height: 8,
+      ),
+      RaisedButton(
+        onPressed: () {},
+        child: Text("Sign In"),
+      ),
+      SizedBox(
+        height: 8,
+      ),
+      FlatButton(
+        onPressed: () {},
+        child: Text("Create an account"),
+      )
     ];
   }
 
@@ -27,6 +44,7 @@ class EmailSignInForm extends StatelessWidget {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: _buildChildren(),
       ),
     );
