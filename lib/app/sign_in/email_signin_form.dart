@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:time_tracker_flutter/app/custom_raised_buttons/form_custom_raised_button.dart';
 
 class EmailSignInForm extends StatelessWidget {
   List<Widget> _buildChildren() {
@@ -22,10 +23,16 @@ class EmailSignInForm extends StatelessWidget {
       SizedBox(
         height: 8,
       ),
-      RaisedButton(
-        onPressed: () {},
-        child: Text("Sign In"),
+      FormSubmitButton(
+        text: "Enter",
+        onPressed: () {
+          print("daba");
+        },
       ),
+      // RaisedButton(
+      //   onPressed: () {},
+      //   child: Text("Sign In"),
+      // ),
       SizedBox(
         height: 8,
       ),
