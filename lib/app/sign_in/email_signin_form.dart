@@ -65,6 +65,8 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     return [
       TextField(
         controller: _emailController,
+        autocorrect: false,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: "Email",
           hintText: "username@email.com",
