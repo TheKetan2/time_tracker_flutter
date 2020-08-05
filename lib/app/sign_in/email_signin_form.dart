@@ -63,26 +63,11 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         ? "Need an account? Register"
         : "Have and account? Sign in";
     return [
-      TextField(
-        controller: _emailController,
-        autocorrect: false,
-        textInputAction: TextInputAction.next,
-        decoration: InputDecoration(
-          labelText: "Email",
-          hintText: "username@email.com",
-        ),
-      ),
+      _buildEmailTextField(),
       SizedBox(
         height: 8,
       ),
-      TextField(
-        controller: _passwordController,
-        decoration: InputDecoration(
-          labelText: "Password",
-          // hintText: "Password",
-        ),
-        obscureText: true,
-      ),
+      _buildPasswordTextField(),
       SizedBox(
         height: 8,
       ),
@@ -102,6 +87,29 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         child: Text(secondayText),
       )
     ];
+  }
+
+  TextField _buildPasswordTextField() {
+    return TextField(
+      controller: _passwordController,
+      decoration: InputDecoration(
+        labelText: "Password",
+        // hintText: "Password",
+      ),
+      obscureText: true,
+    );
+  }
+
+  TextField _buildEmailTextField() {
+    return TextField(
+      controller: _emailController,
+      autocorrect: false,
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+        labelText: "Email",
+        hintText: "username@email.com",
+      ),
+    );
   }
 
   @override
