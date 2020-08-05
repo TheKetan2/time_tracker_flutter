@@ -69,6 +69,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     final secondayText = _formType == EmailSignInFormType.signIn
         ? "Need an account? Register"
         : "Have and account? Sign in";
+
+    bool submitEnable = _email.isNotEmpty && _password.isNotEmpty;
+
     return [
       _buildEmailTextField(),
       SizedBox(
@@ -80,7 +83,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       ),
       FormSubmitButton(
         text: primaryText,
-        onPressed: _submit,
+        onPressed: submitEnable ? _submit : null,
       ),
       // RaisedButton(
       //   onPressed: () {},
@@ -101,6 +104,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       focusNode: _passwordFocusNode,
       controller: _passwordController,
       onEditingComplete: _submit,
+      onChanged: (password) => _updateState(),
       decoration: InputDecoration(
         labelText: "Password",
         // hintText: "Password",
@@ -115,6 +119,8 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       controller: _emailController,
       onEditingComplete: _emailEditingComplete,
       autocorrect: false,
+      keyboardType: TextInputType.emailAddress,
+      onChanged: (email) => _updateState(),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: "Email",
@@ -135,5 +141,9 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
         children: _buildChildren(),
       ),
     );
+  }
+
+  void _updateState() {
+    setState(() {});
   }
 }
