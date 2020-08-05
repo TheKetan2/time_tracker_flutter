@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/custom_raised_buttons/form_custom_raised_button.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
+import 'package:time_tracker_flutter/app/sign_in/validator.dart';
 
 enum EmailSignInFormType { signIn, register }
 
-class EmailSignInForm extends StatefulWidget {
+class EmailSignInForm extends StatefulWidget with EmailAndPasswordValidator {
   final AuthBase auth;
 
-  const EmailSignInForm({Key key, this.auth}) : super(key: key);
+  EmailSignInForm({this.auth});
   @override
   _EmailSignInFormState createState() => _EmailSignInFormState();
 }
@@ -83,7 +84,10 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       ),
       FormSubmitButton(
         text: primaryText,
-        onPressed: submitEnable ? _submit : null,
+        onPressed: widget.emailValidator.isValid(_email) &&
+                widget.emailValidator.isValid(_password)
+            ? _submit
+            : null,
       ),
       // RaisedButton(
       //   onPressed: () {},
