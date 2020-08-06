@@ -104,6 +104,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   }
 
   TextField _buildPasswordTextField() {
+    bool passwordValid = widget.passwordValidator.isValid(_password);
     return TextField(
       focusNode: _passwordFocusNode,
       controller: _passwordController,
@@ -111,6 +112,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       onChanged: (password) => _updateState(),
       decoration: InputDecoration(
         labelText: "Password",
+        errorText: passwordValid ? null : "Password can't be empty",
         // hintText: "Password",
       ),
       obscureText: true,
@@ -118,6 +120,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   }
 
   TextField _buildEmailTextField() {
+    bool emailValid = widget.emailValidator.isValid(_email);
     return TextField(
       focusNode: _emailFocusNode,
       controller: _emailController,
@@ -127,6 +130,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       onChanged: (email) => _updateState(),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
+        errorText: emailValid ? null : "Email can't be empty",
         labelText: "Email",
         hintText: "username@email.com",
       ),
