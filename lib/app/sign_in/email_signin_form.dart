@@ -26,7 +26,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
   String get _email => _emailController.text;
   String get _password => _passwordController.text;
 
+  bool _submitted = false;
+  bool _isLoading = false;
+
   void _submit() async {
+    setState(() {
+      _submitted = true;
+      _isLoading = true;
+    });
     // print(
     //     "email: ${_emailController.text},\nPassword: ${_passwordController.text}");
     try {
@@ -44,6 +51,10 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       Navigator.of(context).pop();
     } catch (e) {
       print(e.toString());
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 
@@ -53,6 +64,7 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
 
   void _toggleFormType() {
     setState(() {
+      _submitted = false;
       _formType = _formType == EmailSignInFormType.register
           ? EmailSignInFormType.signIn
           : EmailSignInFormType.register;
@@ -109,10 +121,12 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
       focusNode: _passwordFocusNode,
       controller: _passwordController,
       onEditingComplete: _submit,
+      enabled: !_isLoading,
       onChanged: (password) => _updateState(),
       decoration: InputDecoration(
         labelText: "Password",
-        errorText: passwordValid ? null : "Password can't be empty",
+        errorText:
+            passwordValid || !_submitted ? null : "Password can't be empty",
         // hintText: "Password",
       ),
       obscureText: true,
@@ -124,13 +138,14 @@ class _EmailSignInFormState extends State<EmailSignInForm> {
     return TextField(
       focusNode: _emailFocusNode,
       controller: _emailController,
+      enabled: !_isLoading,
       onEditingComplete: _emailEditingComplete,
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       onChanged: (email) => _updateState(),
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
-        errorText: emailValid ? null : "Email can't be empty",
+        errorText: emailValid || !_submitted ? null : "Email can't be empty",
         labelText: "Email",
         hintText: "username@email.com",
       ),
