@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:time_tracker_flutter/app/custom_raised_buttons/sign_in_button.dart';
-import 'package:time_tracker_flutter/app/custom_raised_buttons/social_sign_in_button.dart';
+import 'package:time_tracker_flutter/app/custom_widgets/sign_in_button.dart';
+import 'package:time_tracker_flutter/app/custom_widgets/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
 

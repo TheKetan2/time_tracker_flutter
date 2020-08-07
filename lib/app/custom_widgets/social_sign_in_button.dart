@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:time_tracker_flutter/app/custom_raised_buttons/custom_raised_button.dart';
+import 'package:time_tracker_flutter/app/custom_widgets/custom_raised_button.dart';
 
 class SocialSignInButton extends CustomRaisedButton {
   SocialSignInButton({
