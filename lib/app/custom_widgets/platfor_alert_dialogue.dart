@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:time_tracker_flutter/app/custom_widgets/platform_widgets.dart';
@@ -5,9 +7,11 @@ import 'package:time_tracker_flutter/app/custom_widgets/platform_widgets.dart';
 class PlatformAlertDialogue extends PlatformWidget {
   final String title;
   final String content;
+  final String cancle;
   final String defualtActionText;
 
   PlatformAlertDialogue({
+    this.cancle,
     @required this.title,
     @required this.content,
     @required this.defualtActionText,
@@ -16,10 +20,14 @@ class PlatformAlertDialogue extends PlatformWidget {
         assert(defualtActionText != null);
 
   Future<bool> show(BuildContext context) async {
-    return await showDialog<bool>(
-      context: context,
-      builder: (context) => this,
-    );
+    return Platform.isIOS
+        ? await showCupertinoDialog<bool>(
+            context: context, builder: (context) => this)
+        : await showDialog<bool>(
+            context: context,
+            barrierDismissible: true,
+            builder: (context) => this,
+          );
   }
 
   @override
@@ -41,12 +49,23 @@ class PlatformAlertDialogue extends PlatformWidget {
   }
 
   List<Widget> _buildActions(BuildContext context) {
-    return [
+    final actions = <Widget>[];
+    if (cancle != null) {
+      actions.add(
+        PlatformAlertDialogueAction(
+          child: Text(cancle),
+          onPressed: () => Navigator.of(context).pop(false),
+        ),
+      );
+    }
+    actions.add(
       PlatformAlertDialogueAction(
         child: Text(defualtActionText),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => Navigator.of(context).pop(true),
       ),
-    ];
+    );
+
+    return actions;
   }
 }
 
