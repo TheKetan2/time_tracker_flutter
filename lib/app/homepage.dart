@@ -17,11 +17,13 @@ class HomePage extends StatelessWidget {
     ).show(context);
     print(didReqSignOut.toString());
     if (didReqSignOut == true) {
-      _signOut();
+      _signOut(context);
     }
   }
 
-  Future<void> _signOut() async {
+  Future<void> _signOut(BuildContext context) async {
+    final auth = AuthProvider.of(context);
+
     print("Sign Out");
     try {
       await auth.signOut();

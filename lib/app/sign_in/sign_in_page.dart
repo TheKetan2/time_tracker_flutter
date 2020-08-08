@@ -9,8 +9,6 @@ import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
 class SignInPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = AuthProvider.of(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text("Time Tracker"),
@@ -21,7 +19,9 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-  Future<void> _signInAnnonymously() async {
+  Future<void> _signInAnnonymously(BuildContext context) async {
+    final auth = AuthProvider.of(context);
+
     try {
       await auth.signInAnnonymously();
       // print("${authResult.user.uid}");
@@ -33,6 +33,8 @@ class SignInPage extends StatelessWidget {
 
   void _signInWithEmail(BuildContext context) {
     //TODO: show email of user
+    final auth = AuthProvider.of(context);
+
     Navigator.of(context).push(MaterialPageRoute<void>(
       fullscreenDialog: true,
       builder: (context) => EmailSignInPage(
@@ -41,7 +43,9 @@ class SignInPage extends StatelessWidget {
     ));
   }
 
-  Future<void> _signInWithGoogle() async {
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    final auth = AuthProvider.of(context);
+
     try {
       await auth.signInWithGoogle();
       // print("${authResult.user.uid}");
@@ -77,7 +81,7 @@ class SignInPage extends StatelessWidget {
             textColor: Colors.black87,
             text: "Sign in with Google",
             assetName: "img/google-logo.png",
-            onPressed: _signInWithGoogle,
+            onPressed: () => _signInWithGoogle(context),
           ),
           // SizedBox(
           //   height: 8.0,
@@ -116,7 +120,7 @@ class SignInPage extends StatelessWidget {
             color: Colors.lime[300],
             onPressed: () {
               print("Facebook.");
-              _signInAnnonymously();
+              _signInAnnonymously(context);
             },
           ),
         ],
