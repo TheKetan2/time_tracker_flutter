@@ -1,10 +1,7 @@
-import "package:flutter/material.dart";
-import 'package:time_tracker_flutter/app/services/auth.dart';
-import 'package:time_tracker_flutter/app/sign_in/landing_page.dart';
-import "package:provider/provider.dart";
-
-// import 'app/services/auth_provider_notinuse.dart';
-// import 'package:time_tracker_flutter/app/sign_in/sign_in_page.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter/app/landing_page.dart';
+import 'package:time_tracker_flutter/services/auth.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,13 +13,11 @@ class MyApp extends StatelessWidget {
     return Provider<AuthBase>(
       builder: (context) => Auth(),
       child: MaterialApp(
-        title: "Time Tracker",
+        title: 'Time Tracker',
         theme: ThemeData(
           primarySwatch: Colors.indigo,
         ),
-        home: LandingPage(
-            // auth: Auth(),
-            ),
+        home: LandingPage(),
       ),
     );
   }

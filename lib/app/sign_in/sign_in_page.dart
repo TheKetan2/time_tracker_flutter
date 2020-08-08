@@ -1,127 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import 'package:time_tracker_flutter/app/custom_widgets/sign_in_button.dart';
-import 'package:time_tracker_flutter/app/custom_widgets/social_sign_in_button.dart';
-import 'package:time_tracker_flutter/app/services/auth.dart';
-// import 'package:time_tracker_flutter/app/services/auth_provider_notinuse.dart';
-import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
+import 'package:time_tracker_flutter/app/sign_in/email_sign_in_page.dart';
+import 'package:time_tracker_flutter/app/sign_in/sign_in_button.dart';
+import 'package:time_tracker_flutter/app/sign_in/social_sign_in_button.dart';
+import 'package:time_tracker_flutter/services/auth.dart';
 
 class SignInPage extends StatelessWidget {
+  Future<void> _signInAnonymously(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthBase>(context);
+      await auth.signInAnonymously();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> _signInWithGoogle(BuildContext context) async {
+    try {
+      final auth = Provider.of<AuthBase>(context);
+      await auth.signInWithGoogle();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  // Future<void> _signInWithFacebook(BuildContext context) async {
+  //   try {
+  //     final auth = Provider.of<AuthBase>(context);
+  //     await auth.signInWithFacebook();
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
+  void _signInWithEmail(BuildContext context) {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        fullscreenDialog: true,
+        builder: (context) => EmailSignInPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Time Tracker"),
+        title: Text('Time Tracker'),
         elevation: 2.0,
       ),
-      body: _buildContents(context),
+      body: _buildContent(context),
       backgroundColor: Colors.grey[200],
     );
   }
 
-  Future<void> _signInAnnonymously(BuildContext context) async {
-    final auth = Provider.of<AuthBase>(context);
-    ;
-
-    try {
-      await auth.signInAnnonymously();
-      // print("${authResult.user.uid}");
-      // onSignIn(user);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  void _signInWithEmail(BuildContext context) {
-    //TODO: show email of user
-    final auth = Provider.of<AuthBase>(context);
-
-    Navigator.of(context).push(MaterialPageRoute<void>(
-      fullscreenDialog: true,
-      builder: (context) => EmailSignInPage(),
-    ));
-  }
-
-  Future<void> _signInWithGoogle(BuildContext context) async {
-    final auth = Provider.of<AuthBase>(context);
-
-    try {
-      await auth.signInWithGoogle();
-      // print("${authResult.user.uid}");
-      // onSignIn(user);
-    } catch (e) {
-      print(e.toString());
-    }
-  }
-
-  Widget _buildContents(BuildContext context) {
+  Widget _buildContent(BuildContext context) {
     return Padding(
-      // width: double.infinity,
-      // color: Colors.yellow,
       padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(
-            "Sign In",
+            'Sign in',
+            textAlign: TextAlign.center,
             style: TextStyle(
-              color: Colors.black,
-              fontSize: 32,
+              fontSize: 32.0,
               fontWeight: FontWeight.w600,
             ),
-            textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: 8.0,
-          ),
+          SizedBox(height: 48.0),
           SocialSignInButton(
-            color: Colors.white,
+            assetName: 'img/google-logo.png',
+            text: 'Sign in with Google',
             textColor: Colors.black87,
-            text: "Sign in with Google",
-            assetName: "img/google-logo.png",
+            color: Colors.white,
             onPressed: () => _signInWithGoogle(context),
           ),
-          // SizedBox(
-          //   height: 8.0,
-          // ),
+          SizedBox(height: 8.0),
           // SocialSignInButton(
-          //   color: Color(0xff334d92),
+          //   assetName: 'images/facebook-logo.png',
+          //   text: 'Sign in with Facebook',
           //   textColor: Colors.white,
-
-          //   text: "Sign in with Facebook",
-          //   assetName: "img/facebook-logo.png",
-          //   onPressed: () {},
+          //   color: Color(0xFF334D92),
+          //   onPressed: () => _signInWithFacebook(context),
           // ),
-          SizedBox(
-            height: 8.0,
-          ),
+          // SizedBox(height: 8.0),
           SignInButton(
-            text: "Sign in with email",
-            color: Colors.teal[700],
+            text: 'Sign in with email',
             textColor: Colors.white,
+            color: Colors.teal[700],
             onPressed: () => _signInWithEmail(context),
           ),
-          SizedBox(
-            height: 8.0,
-          ),
+          SizedBox(height: 8.0),
           Text(
-            "OR",
+            'or',
             style: TextStyle(fontSize: 14.0, color: Colors.black87),
             textAlign: TextAlign.center,
           ),
-          SizedBox(
-            height: 8.0,
-          ),
+          SizedBox(height: 8.0),
           SignInButton(
-            text: "Go Annonymous",
-            textColor: Colors.black87,
+            text: 'Go anonymous',
+            textColor: Colors.black,
             color: Colors.lime[300],
-            onPressed: () {
-              print("Facebook.");
-              _signInAnnonymously(context);
-            },
+            onPressed: () => _signInAnonymously(context),
           ),
         ],
       ),
