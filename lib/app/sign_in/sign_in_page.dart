@@ -3,18 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/custom_widgets/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/custom_widgets/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
+import 'package:time_tracker_flutter/app/services/auth_provider.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
 
 class SignInPage extends StatelessWidget {
-  final AuthBase auth;
-
-  const SignInPage({
-    Key key,
-    @required this.auth,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+    final auth = AuthProvider.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Time Tracker"),

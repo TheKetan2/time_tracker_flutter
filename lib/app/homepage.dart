@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:time_tracker_flutter/app/custom_widgets/platfor_alert_dialogue.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
+import 'package:time_tracker_flutter/app/services/auth_provider.dart';
 
 class HomePage extends StatelessWidget {
   // final VoidCallback onSignOut;
-  final AuthBase auth;
-
-  const HomePage({
-    Key key,
-    @required this.auth,
-  }) : super(key: key);
 
   Future<void> _confirmSignOut(BuildContext context) async {
+    final auth = AuthProvider.of(context);
+
     final didReqSignOut = await PlatformAlertDialogue(
       title: "Logout",
       content: "Are you sure?",

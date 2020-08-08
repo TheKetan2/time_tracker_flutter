@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import 'package:time_tracker_flutter/app/services/auth.dart';
 import 'package:time_tracker_flutter/app/sign_in/landing_page.dart';
+
+import 'app/services/auth_provider.dart';
 // import 'package:time_tracker_flutter/app/sign_in/sign_in_page.dart';
 
 void main() {
@@ -14,13 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Time Tracker",
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
-      ),
-      home: LandingPage(
-        auth: Auth(),
+    return AuthProvider(
+      auth: Auth(),
+      child: MaterialApp(
+        title: "Time Tracker",
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        home: LandingPage(
+          auth: Auth(),
+        ),
       ),
     );
   }
