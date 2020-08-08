@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:time_tracker_flutter/app/custom_widgets/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/custom_widgets/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/app/services/auth.dart';
-import 'package:time_tracker_flutter/app/services/auth_provider.dart';
+// import 'package:time_tracker_flutter/app/services/auth_provider_notinuse.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_signin.dart';
 
 class SignInPage extends StatelessWidget {
@@ -20,7 +21,8 @@ class SignInPage extends StatelessWidget {
   }
 
   Future<void> _signInAnnonymously(BuildContext context) async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context);
+    ;
 
     try {
       await auth.signInAnnonymously();
@@ -33,18 +35,16 @@ class SignInPage extends StatelessWidget {
 
   void _signInWithEmail(BuildContext context) {
     //TODO: show email of user
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context);
 
     Navigator.of(context).push(MaterialPageRoute<void>(
       fullscreenDialog: true,
-      builder: (context) => EmailSignInPage(
-        auth: auth,
-      ),
+      builder: (context) => EmailSignInPage(),
     ));
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
-    final auth = AuthProvider.of(context);
+    final auth = Provider.of<AuthBase>(context);
 
     try {
       await auth.signInWithGoogle();
