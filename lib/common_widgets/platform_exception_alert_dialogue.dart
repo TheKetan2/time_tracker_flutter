@@ -8,7 +8,25 @@ class PlatformExceptionAlertDialogue extends PlatformAlertDialog {
     @required PlatformException exception,
   }) : super(
           title: title,
-          content: exception.message,
+          content: _message(exception),
           defaultActionText: "OK",
         );
+
+  static String _message(PlatformException exception) {
+    return _errors[exception.code] ?? exception.message;
+  }
+
+  static Map<String, String> _errors = {
+    /**
+     * "ERROR_WEAK_PASSWORD"
+     * "ERROR_INVALID_CREDENTIAL"
+     * "ERROR_EMAIL_ALREADY_IN_USE"
+     * "ERROR_INVALID_EMAIL"
+     * "ERROR_WRONG_PASSWORD"
+     * "ERROR_USER_NOT_FOUND"
+     * "ERROR_USER_DISABLED"
+     * "ERROR_TOO_MANY_REQUESTS"
+     * "ERROR_OPERATION_NOT_ALLOWED"
+     */
+  };
 }
