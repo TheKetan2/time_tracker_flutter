@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_sign_in_page.dart';
+import 'package:time_tracker_flutter/app/sign_in/sign_in_block.dart';
 import 'package:time_tracker_flutter/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialogue.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 
 class SignInPage extends StatefulWidget {
+  /*
+  Use a static create(context) method 
+  when creting widget that require a block
+  */
+  static Widget create(BuildContext context) {
+    return Provider<SignInBlock>(
+      // (_) = use "_" inside closure for arguments that are no needed
+
+      builder: (_) => SignInBlock(),
+      child: SignInPage(),
+    );
+  }
+
   @override
   _SignInPageState createState() => _SignInPageState();
 }
