@@ -17,10 +17,11 @@ class SignInPage extends StatelessWidget {
   when creting widget that require a block
   */
   static Widget create(BuildContext context) {
+    final auth = Provider.of<AuthBase>(context);
     return Provider<SignInBlock>(
       // (_) = use "_" inside closure for arguments that are no needed
 
-      builder: (_) => SignInBlock(),
+      builder: (_) => SignInBlock(auth),
       dispose: (context, bloc) => bloc.dispose(),
       child: Consumer<SignInBlock>(
         builder: (context, bloc, _) => SignInPage(
@@ -47,28 +48,24 @@ class SignInPage extends StatelessWidget {
   Future<void> _signInAnonymously(BuildContext context) async {
     // final bloc = Provider.of<SignInBlock>(context);
     try {
-      bloc.setIsLoading(true);
-      final auth = Provider.of<AuthBase>(context);
-      await auth.signInAnonymously();
+      // bloc.setIsLoading(true);
+      // final auth = Provider.of<AuthBase>(context);
+      await bloc.signInAnonymously();
     } on PlatformException catch (e) {
       print(e.toString());
       _showSignInError(context, e);
-    } finally {
-      bloc.setIsLoading(false);
     }
   }
 
   Future<void> _signInWithGoogle(BuildContext context) async {
     // final bloc = Provider.of<SignInBlock>(context);
     try {
-      bloc.setIsLoading(true);
-      final auth = Provider.of<AuthBase>(context);
-      await auth.signInWithGoogle();
+      // bloc.setIsLoading(true);
+      // final auth = Provider.of<AuthBase>(context);
+      await bloc.signInWithGoogle();
     } on PlatformException catch (e) {
       print(e.toString());
       _showSignInError(context, e);
-    } finally {
-      bloc.setIsLoading(false);
     }
   }
 
