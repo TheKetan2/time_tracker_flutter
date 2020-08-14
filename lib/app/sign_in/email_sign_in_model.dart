@@ -14,5 +14,5 @@ class EmailSignInModel {
     this.formType = EmailSignInFormType.signIn,
     this.isLoading,
     this.submitted,
-  },);
+  });
 }
