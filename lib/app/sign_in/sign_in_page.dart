@@ -31,13 +31,6 @@ class SignInPage extends StatelessWidget {
     );
   }
 
-//   @override
-//   _SignInPageState createState() => _SignInPageState();
-// }
-
-// class _SignInPageState extends State<SignInPage> {
-//   // bool _isLoading = false;
-
   void _showSignInError(BuildContext context, PlatformException exception) {
     PlatformExceptionAlertDialogue(
       title: "Sign in Failed",
