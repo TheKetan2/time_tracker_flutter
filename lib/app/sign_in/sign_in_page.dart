@@ -21,7 +21,7 @@ class SignInPage extends StatelessWidget {
     return Provider<SignInBlock>(
       // (_) = use "_" inside closure for arguments that are no needed
 
-      builder: (_) => SignInBlock(auth),
+      builder: (_) => SignInBlock(auth: auth),
       dispose: (context, bloc) => bloc.dispose(),
       child: Consumer<SignInBlock>(
         builder: (context, bloc, _) => SignInPage(
