@@ -1,4 +1,3 @@
-// import 'package:time_tracker_flutter/app/sign_in/email_sign_in_form.dart';
 enum EmailSignInFormType { signIn, register }
 
 class EmailSignInModel {
