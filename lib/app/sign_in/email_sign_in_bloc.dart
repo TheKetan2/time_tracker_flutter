@@ -32,7 +32,9 @@ class EmailSignInBloc {
         await auth.signInWithEmailAndPassword(_model.email, _model.password);
       } else {
         await auth.createUserWithEmailAndPassword(
-            _model.email, _model.password);
+          _model.email,
+          _model.password,
+        );
       }
     } catch (e) {
       rethrow;

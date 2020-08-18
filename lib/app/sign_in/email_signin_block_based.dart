@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter/app/sign_in/email_sign_in_bloc.dart';
 import 'package:time_tracker_flutter/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter/common_widgets/form_submit_button.dart';
 import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialogue.dart';
@@ -10,13 +11,22 @@ import 'package:time_tracker_flutter/services/auth.dart';
 
 import 'email_sign_in_model.dart';
 
-class EmailSignInFormStateful extends StatefulWidget
+class EmailSignInFormBlocBased extends StatefulWidget
     with EmailAndPasswordValidators {
+  final EmailSignInBloc bloc;
+
+  EmailSignInFormBlocBased({
+    Key key,
+    this.bloc,
+  }) : super(
+          key: key,
+        );
+
   @override
   _EmailSignInFormState createState() => _EmailSignInFormState();
 }
 
-class _EmailSignInFormState extends State<EmailSignInFormStateful> {
+class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
