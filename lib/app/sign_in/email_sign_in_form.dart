@@ -40,32 +40,6 @@ class _EmailSignInFormState extends State<EmailSignInFormStateful> {
     super.dispose();
   }
 
-  void _submit() async {
-    setState(() {
-      _submitted = true;
-      _isLoading = true;
-    });
-    try {
-      final auth = Provider.of<AuthBase>(context);
-      if (_formType == EmailSignInFormType.signIn) {
-        await auth.signInWithEmailAndPassword(_email, _password);
-      } else {
-        await auth.createUserWithEmailAndPassword(_email, _password);
-      }
-      Navigator.of(context).pop();
-    } on PlatformException catch (e) {
-      PlatformExceptionAlertDialogue(
-        title: 'Sign in failed',
-        exception: e,
-        // defaultActionText: 'OK',
-      ).show(context);
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
-
   void _emailEditingComplete() {
     final newFocus = widget.emailValidator.isValid(_email)
         ? _passwordFocusNode
