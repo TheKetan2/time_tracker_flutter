@@ -1,5 +1,4 @@
 // import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +16,21 @@ class EmailSignInFormBlocBased extends StatefulWidget
 
   EmailSignInFormBlocBased({
     Key key,
-    this.bloc,
-  }) : super(
-          key: key,
-        );
+    @required this.bloc,
+  });
+
+  static Widget create(BuildContext context) {
+    final AuthBase auth = Provider.of<AuthBase>(context);
+    return Provider<EmailSignInBloc>(
+      builder: (context) => EmailSignInBloc(auth: auth),
+      child: Consumer<EmailSignInBloc>(
+        builder: (context, bloc, _) => EmailSignInFormBlocBased(
+          bloc: bloc,
+        ),
+      ),
+      dispose: (context, bloc) => bloc.dispose(),
+    );
+  }
 
   @override
   _EmailSignInFormState createState() => _EmailSignInFormState();
@@ -162,14 +172,19 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisSize: MainAxisSize.min,
-        children: _buildChildren(),
-      ),
-    );
+    return StreamBuilder<EmailSignInModel>(
+        stream: widget.bloc.modelStream,
+        initialData: EmailSignInModel(),
+        builder: (context, snapshot) {
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: _buildChildren(),
+            ),
+          );
+        });
   }
 
   void _updateState() {
