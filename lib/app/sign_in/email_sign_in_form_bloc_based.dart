@@ -1,84 +1,60 @@
-// import 'dart:io';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_sign_in_bloc.dart';
+import 'package:time_tracker_flutter/app/sign_in/email_sign_in_model.dart';
 import 'package:time_tracker_flutter/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter/common_widgets/form_submit_button.dart';
-import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialogue.dart';
+// import 'package:time_tracker_flutter/common_widgets/platform_alert_dialog.dart';
+import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
-
-import 'email_sign_in_model.dart';
+import 'package:flutter/services.dart';
 
 class EmailSignInFormBlocBased extends StatefulWidget
     with EmailAndPasswordValidators {
+  EmailSignInFormBlocBased({@required this.bloc});
   final EmailSignInBloc bloc;
-
-  EmailSignInFormBlocBased({
-    Key key,
-    @required this.bloc,
-  });
 
   static Widget create(BuildContext context) {
     final AuthBase auth = Provider.of<AuthBase>(context);
     return Provider<EmailSignInBloc>(
       builder: (context) => EmailSignInBloc(auth: auth),
       child: Consumer<EmailSignInBloc>(
-        builder: (context, bloc, _) => EmailSignInFormBlocBased(
-          bloc: bloc,
-        ),
+        builder: (context, bloc, _) => EmailSignInFormBlocBased(bloc: bloc),
       ),
       dispose: (context, bloc) => bloc.dispose(),
     );
   }
 
   @override
-  _EmailSignInFormState createState() => _EmailSignInFormState();
+  _EmailSignInFormBlocBasedState createState() =>
+      _EmailSignInFormBlocBasedState();
 }
 
-class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
+class _EmailSignInFormBlocBasedState extends State<EmailSignInFormBlocBased> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
 
-  // String get _email => _emailController.text;
-  // String get _password => _passwordController.text;
-  // EmailSignInFormType _formType = EmailSignInFormType.signIn;
-  // bool _submitted = false;
-  // bool _isLoading = false;
-
   @override
   void dispose() {
-    print("dispose called");
-
     _emailController.dispose();
     _passwordController.dispose();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
-
     super.dispose();
   }
 
   Future<void> _submit() async {
-    // setState(() {
-    //   _submitted = true;
-    //   _isLoading = true;
-    // });
     try {
       await widget.bloc.submit();
-      // final auth = Provider.of<AuthBase>(context);
-      // if (_formType == EmailSignInFormType.signIn) {
-      //   await auth.signInWithEmailAndPassword(_email, _password);
-      // } else {
-      //   await auth.createUserWithEmailAndPassword(_email, _password);
-      // }
       Navigator.of(context).pop();
     } on PlatformException catch (e) {
-      PlatformExceptionAlertDialogue(
+      PlatformExceptionAlertDialog(
         title: 'Sign in failed',
         exception: e,
-        // defaultActionText: 'OK',
       ).show(context);
     }
   }
@@ -90,17 +66,18 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
     FocusScope.of(context).requestFocus(newFocus);
   }
 
-  void _toggleFormType(EmailSignInModel model) {
-    widget.bloc.updateWith(
-      email: "",
-      password: "",
-      isLoading: false,
-      submitted: false,
-      formType: model.formType == EmailSignInFormType.signIn
-          ? EmailSignInFormType.register
-          : EmailSignInFormType.signIn,
-    );
+  void _toggleFormType() {
+    // widget.bloc.updateWith(
+    //   email: '',
+    //   password: '',
+    //   formType: model.formType == EmailSignInFormType.signIn
+    //       ? EmailSignInFormType.register
+    //       : EmailSignInFormType.signIn,
+    //   isLoading: false,
+    //   submitted: false,
+    // );
 
+    widget.bloc.toggleFormType();
     _emailController.clear();
     _passwordController.clear();
   }
@@ -129,7 +106,7 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
       SizedBox(height: 8.0),
       FlatButton(
         child: Text(secondaryText),
-        onPressed: !model.isLoading ? () => _toggleFormType(model) : null,
+        onPressed: !model.isLoading ? _toggleFormType : null,
       ),
     ];
   }
@@ -147,9 +124,7 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
       ),
       obscureText: true,
       textInputAction: TextInputAction.done,
-      onChanged: (password) => widget.bloc.updateWith(
-        password: password,
-      ),
+      onChanged: (password) => widget.bloc.updatePassword(password),
       onEditingComplete: _submit,
     );
   }
@@ -169,7 +144,7 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
       autocorrect: false,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
-      onChanged: (email) => _updateState(),
+      onChanged: (email) => widget.bloc.updateEmail(email),
       onEditingComplete: () => _emailEditingComplete(model),
     );
   }
@@ -190,9 +165,5 @@ class _EmailSignInFormState extends State<EmailSignInFormBlocBased> {
             ),
           );
         });
-  }
-
-  void _updateState() {
-    setState(() {});
   }
 }
