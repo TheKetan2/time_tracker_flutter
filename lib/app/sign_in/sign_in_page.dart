@@ -14,11 +14,18 @@ class SignInPage extends StatelessWidget {
 
   static Widget create(BuildContext context) {
     final auth = Provider.of<AuthBase>(context);
-    return Provider<SignInBloc>(
-      builder: (_) => SignInBloc(auth: auth),
-      dispose: (context, bloc) => bloc.dispose(),
-      child: Consumer<SignInBloc>(
-        builder: (context, bloc, _) => SignInPage(bloc: bloc),
+    return ChangeNotifierProvider<ValueNotifier<bool>>(
+      builder: (_) => ValueNotifier<bool>(false),
+      child: Consumer<ValueNotifier<bool>>(
+        builder: (_, isLoading, __) => Provider<SignInBloc>(
+          builder: (_) => SignInBloc(
+            auth: auth,
+            isLoading: isLoading,
+          ),
+          child: Consumer<SignInBloc>(
+            builder: (context, bloc, _) => SignInPage(bloc: bloc),
+          ),
+        ),
       ),
     );
   }
@@ -48,16 +55,6 @@ class SignInPage extends StatelessWidget {
     }
   }
 
-  // Future<void> _signInWithFacebook(BuildContext context) async {
-  //   try {
-  //     await bloc.signInWithFacebook();
-  //   } on PlatformException catch (e) {
-  //     if (e.code != 'ERROR_ABORTED_BY_USER') {
-  //       _showSignInError(context, e);
-  //     }
-  //   }
-  // }
-
   void _signInWithEmail(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
@@ -69,17 +66,16 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLoading = Provider.of<ValueNotifier<bool>>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Time Tracker'),
         elevation: 2.0,
       ),
-      body: StreamBuilder<bool>(
-          stream: bloc.isLoadingStream,
-          initialData: false,
-          builder: (context, snapshot) {
-            return _buildContent(context, snapshot.data);
-          }),
+      body: _buildContent(
+        context,
+        isLoading.value,
+      ),
       backgroundColor: Colors.grey[200],
     );
   }
@@ -103,14 +99,6 @@ class SignInPage extends StatelessWidget {
             color: Colors.white,
             onPressed: isLoading ? null : () => _signInWithGoogle(context),
           ),
-          // SizedBox(height: 8.0),
-          // SocialSignInButton(
-          //   assetName: 'images/facebook-logo.png',
-          //   text: 'Sign in with Facebook',
-          //   textColor: Colors.white,
-          //   color: Color(0xFF334D92),
-          //   onPressed: isLoading ? null : () => _signInWithFacebook(context),
-          // ),
           SizedBox(height: 8.0),
           SignInButton(
             text: 'Sign in with email',
