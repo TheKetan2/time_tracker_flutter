@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/app/sign_in/email_sign_in_page.dart';
-import 'package:time_tracker_flutter/app/sign_in/sign_in_bloc.dart';
+import 'package:time_tracker_flutter/app/sign_in/sign_in_manager.dart';
 import 'package:time_tracker_flutter/app/sign_in/sign_in_button.dart';
 import 'package:time_tracker_flutter/app/sign_in/social_sign_in_button.dart';
 import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialog.dart';
@@ -15,7 +15,7 @@ class SignInPage extends StatelessWidget {
     this.isLoading,
   }) : super(key: key);
 
-  final SignInBloc bloc;
+  final SignInManager bloc;
   final bool isLoading;
 
   static Widget create(BuildContext context) {
@@ -23,12 +23,12 @@ class SignInPage extends StatelessWidget {
     return ChangeNotifierProvider<ValueNotifier<bool>>(
       builder: (_) => ValueNotifier<bool>(false),
       child: Consumer<ValueNotifier<bool>>(
-        builder: (_, isLoading, __) => Provider<SignInBloc>(
-          builder: (_) => SignInBloc(
+        builder: (_, isLoading, __) => Provider<SignInManager>(
+          builder: (_) => SignInManager(
             auth: auth,
             isLoading: isLoading,
           ),
-          child: Consumer<SignInBloc>(
+          child: Consumer<SignInManager>(
             builder: (context, bloc, _) => SignInPage(
               bloc: bloc,
               isLoading: isLoading.value,
