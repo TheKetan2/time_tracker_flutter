@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:time_tracker_flutter/common_widgets/platform_alert_dialog.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
+import 'package:time_tracker_flutter/services/database.dart';
 
 class JobsPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -44,12 +45,18 @@ class JobsPage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-          onPressed: _createJob,
+          onPressed: () => _createJob(context),
           child: Icon(
             Icons.add,
           )),
     );
   }
 
-  void _createJob() {}
+  Future<void> _createJob(BuildContext context) async {
+    final database = Provider.of<Database>(context);
+    await database.createJob({
+      "name": "Blogging",
+      "ratePerHour": 10,
+    });
+  }
 }
