@@ -3,8 +3,6 @@ import 'package:time_tracker_flutter/app/sign_in/email_sign_in_model.dart';
 import 'package:time_tracker_flutter/app/sign_in/validators.dart';
 import 'package:time_tracker_flutter/services/auth.dart';
 
-// enum EmailSignInFormType { signIn, register }
-
 class EmailSignChangeInModel with EmailAndPasswordValidators, ChangeNotifier {
   EmailSignChangeInModel({
     this.email = '',
