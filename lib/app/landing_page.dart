@@ -22,13 +22,15 @@ class LandingPage extends StatelessWidget {
                       uid: user.uid,
                     ),
                 child: JobsPage());
-          } else {
-            return Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text("Some error occurred"),
             );
           }
+          return Scaffold(
+              body: Center(
+            child: CircularProgressIndicator(),
+          ));
         });
   }
 }
