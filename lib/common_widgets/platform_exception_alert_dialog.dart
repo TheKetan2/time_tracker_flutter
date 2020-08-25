@@ -12,6 +12,7 @@ class PlatformExceptionAlertDialog extends PlatformAlertDialog {
             defaultActionText: 'OK');
 
   static String _message(PlatformException exception) {
+    print(exception);
     return _errors[exception.code] ?? exception.message;
   }
 
