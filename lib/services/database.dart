@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'package:meta/meta.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import "package:flutter/foundation.dart";
+// import "package:flutter/foundation.dart";
 import 'package:time_tracker_flutter/app/home/models/job.dart';
 import 'package:time_tracker_flutter/services/api_path.dart';
 
@@ -9,37 +12,32 @@ abstract class Database {
 }
 
 class FirestoreDatabase implements Database {
+  FirestoreDatabase({@required this.uid}) : assert(uid != null);
   final String uid;
 
-  FirestoreDatabase({@required this.uid})
-      : assert(
-          uid != null,
-        );
-
   Future<void> createJob(Job job) async => await _setData(
-        path: APIPath.job(
-          uid,
-          "job_abc",
-        ),
+        path: APIPath.job(uid, 'job_abc'),
         data: job.toMap(),
       );
 
-  Stream<List<Job>> jobsStream() {
-    final path = APIPath.jobs(uid);
-    final ref = Firestore.instance.collection(path);
-    final snapshot = ref.snapshots();
-    return snapshot.map(
-      (snapshot) => snapshot.documents
-          .map(
-            (snapshot) => Job.forMap(snapshot.data),
-          )
-          .toList(),
-    );
-  }
+  Stream<List<Job>> jobsStream() => _collectionStream(
+        path: APIPath.jobs(uid),
+        builder: (data) => Job.forMap(data),
+      );
 
   Future<void> _setData({String path, Map<String, dynamic> data}) async {
-    final ref = Firestore.instance.document(path);
-    print("$path: $data");
-    await ref.setData(data);
+    final reference = Firestore.instance.document(path);
+    // print('$path: $data');
+    await reference.setData(data);
+  }
+
+  Stream<List<T>> _collectionStream<T>({
+    @required String path,
+    @required T builder(Map<String, dynamic> data),
+  }) {
+    final reference = Firestore.instance.collection(path);
+    final snapshots = reference.snapshots();
+    return snapshots.map((snapshot) =>
+        snapshot.documents.map((snapshot) => builder(snapshot.data)).toList());
   }
 }
