@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:time_tracker_flutter/app/home/models/job.dart';
 import 'package:time_tracker_flutter/services/database.dart';
 
 class AddJobPage extends StatefulWidget {
@@ -102,6 +103,11 @@ class _AddJobPageState extends State<AddJobPage> {
     //TODO: Save data to firestore
     if (_validateSaveForm()) {
       print("name: $_name, rate: $_ratePerHour");
+      final job = Job(
+        name: _name,
+        ratePerHour: _ratePerHour,
+      );
+      widget.database.createJob(job);
     }
   }
 
