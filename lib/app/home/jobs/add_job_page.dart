@@ -99,7 +99,7 @@ class _AddJobPageState extends State<AddJobPage> {
     ];
   }
 
-  void _submit() {
+  Future<void> _submit() async {
     //TODO: Save data to firestore
     if (_validateSaveForm()) {
       print("name: $_name, rate: $_ratePerHour");
@@ -107,7 +107,7 @@ class _AddJobPageState extends State<AddJobPage> {
         name: _name,
         ratePerHour: _ratePerHour,
       );
-      widget.database.createJob(job);
+      await widget.database.createJob(job);
     }
   }
 
