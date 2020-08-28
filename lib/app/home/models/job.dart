@@ -5,10 +5,15 @@ import 'package:flutter/foundation.dart';
 class Job {
   final String name;
   final int ratePerHour;
+  final String id;
 
-  Job({@required this.name, @required this.ratePerHour});
+  Job({
+    @required this.name,
+    @required this.ratePerHour,
+    @required id,
+  });
 
-  factory Job.forMap(Map<String, dynamic> data) {
+  factory Job.forMap(Map<String, dynamic> data, String documentID) {
     if (data == null) {
       return null;
     }
@@ -18,6 +23,7 @@ class Job {
     return Job(
       name: name,
       ratePerHour: ratePerHour,
+      id: documentID,
     );
   }
 
