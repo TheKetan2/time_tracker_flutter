@@ -6,20 +6,23 @@ import 'package:time_tracker_flutter/common_widgets/platform_alert_dialog.dart';
 import 'package:time_tracker_flutter/common_widgets/platform_exception_alert_dialog.dart';
 import 'package:time_tracker_flutter/services/database.dart';
 
-class AddJobPage extends StatefulWidget {
+class EditJobPage extends StatefulWidget {
   final Database database;
+  final Job job;
 
-  const AddJobPage({
+  const EditJobPage({
     Key key,
+    this.job,
     @required this.database,
   }) : super(key: key);
 
-  static Future<void> show(BuildContext context) async {
+  static Future<void> show(BuildContext context, {Job job}) async {
     final database = Provider.of<Database>(context);
     await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context) => AddJobPage(
+        builder: (context) => EditJobPage(
           database: database,
+          job: job,
         ),
         fullscreenDialog: true,
       ),
@@ -30,7 +33,7 @@ class AddJobPage extends StatefulWidget {
   _AddJobPageState createState() => _AddJobPageState();
 }
 
-class _AddJobPageState extends State<AddJobPage> {
+class _AddJobPageState extends State<EditJobPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = "";
   int _ratePerHour = 0;
@@ -40,7 +43,9 @@ class _AddJobPageState extends State<AddJobPage> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text("New Job"),
+        title: Text(
+          widget.job != null ? "Edit Job" : "New Job",
+        ),
         actions: [
           FlatButton(
             child: Text(
@@ -88,6 +93,7 @@ class _AddJobPageState extends State<AddJobPage> {
       TextFormField(
         validator: (value) => value.isNotEmpty ? null : "Name can't be empty",
         decoration: InputDecoration(labelText: "Job Name"),
+        initialValue: widget.job == null ? "" : widget.job.name,
         onSaved: (value) => _name = value,
       ),
       TextFormField(
@@ -97,6 +103,8 @@ class _AddJobPageState extends State<AddJobPage> {
           signed: false,
           decimal: false,
         ),
+        initialValue:
+            widget.job == null ? "" : widget.job.ratePerHour.toString(),
         onSaved: (value) => _ratePerHour = int.tryParse(value) ?? 0,
       ),
     ];
