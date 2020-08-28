@@ -50,10 +50,11 @@ class JobsPage extends StatelessWidget {
       ),
       body: _buildContents(context),
       floatingActionButton: FloatingActionButton(
-          onPressed: () => AddJobPage.show(context),
-          child: Icon(
-            Icons.add,
-          )),
+        onPressed: () => AddJobPage.show(context),
+        child: Icon(
+          Icons.add,
+        ),
+      ),
     );
   }
 
