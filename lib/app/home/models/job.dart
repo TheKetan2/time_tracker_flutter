@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/foundation.dart';
 
 class Job {
@@ -10,7 +8,7 @@ class Job {
   Job({
     @required this.name,
     @required this.ratePerHour,
-    @required id,
+    @required this.id,
   });
 
   factory Job.forMap(Map<String, dynamic> data, String documentID) {

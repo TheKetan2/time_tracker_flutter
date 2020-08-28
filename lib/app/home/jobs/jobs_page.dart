@@ -59,10 +59,10 @@ class JobsPage extends StatelessWidget {
     );
   }
 
-  Future<void> _createJob(BuildContext context) async {
+  Future<void> setJob(BuildContext context) async {
     try {
       final database = Provider.of<Database>(context);
-      await database.createJob(
+      await database.setJob(
         Job(
           name: "Blogging",
           ratePerHour: 10,

@@ -113,15 +113,16 @@ class _AddJobPageState extends State<EditJobPage> {
   Future<void> _submit() async {
     if (_validateSaveForm()) {
       try {
-        print(
-          "name: $_name, rate: $_ratePerHour",
-        );
         final jobs = await widget.database.jobsStream().first;
         final allNames = jobs
             .map(
               (job) => job.name,
             )
             .toList();
+
+        if (widget.job != null) {
+          allNames.remove(widget.job.name);
+        }
 
         if (allNames.contains(_name)) {
           PlatformAlertDialog(
@@ -130,11 +131,15 @@ class _AddJobPageState extends State<EditJobPage> {
             defaultActionText: "OK",
           ).show(context);
         } else {
+          final id = widget.job?.id ?? documentIdFromCurrentDate();
           final job = Job(
             name: _name,
             ratePerHour: _ratePerHour,
+            id: id,
           );
-          await widget.database.createJob(job);
+          await widget.database.setJob(
+            job,
+          );
         }
       } on PlatformException catch (e) {
         PlatformExceptionAlertDialog(
