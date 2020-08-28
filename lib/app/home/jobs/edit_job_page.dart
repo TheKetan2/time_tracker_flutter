@@ -12,7 +12,7 @@ class EditJobPage extends StatefulWidget {
 
   const EditJobPage({
     Key key,
-    this.job,
+    this.job = null,
     @required this.database,
   }) : super(key: key);
 
