@@ -83,14 +83,32 @@ class JobsPage extends StatelessWidget {
         builder: (context, snapshot) {
           return ListItemBuilder<Job>(
             snapshot: snapshot,
-            itemBuilder: (context, job) => JobListTile(
-              job: job,
-              onTap: () => EditJobPage.show(
-                context,
+            itemBuilder: (context, job) => Dismissible(
+              background: Container(color: Colors.red),
+              direction: DismissDirection.endToStart,
+              onDismissed: (direction) => _delete(context, job),
+              key: Key("job-$job.id"),
+              child: JobListTile(
                 job: job,
+                onTap: () => EditJobPage.show(
+                  context,
+                  job: job,
+                ),
               ),
             ),
           );
         });
+  }
+
+  Future<void> _delete(BuildContext context, Job job) async {
+    try {
+      final database = Provider.of<Database>(context);
+      await database.deleteJob(job);
+    } on PlatformException catch (e) {
+      PlatformExceptionAlertDialog(
+        exception: e,
+        title: "Delete Unsuccessful",
+      ).show(context);
+    }
   }
 }
