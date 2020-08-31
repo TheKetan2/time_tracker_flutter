@@ -11,7 +11,7 @@ class Job {
     @required this.id,
   });
 
-  factory Job.forMap(Map<String, dynamic> data, String documentID) {
+  factory Job.fromMap(Map<String, dynamic> data, String documentID) {
     if (data == null) {
       return null;
     }

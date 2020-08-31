@@ -87,7 +87,7 @@ class JobsPage extends StatelessWidget {
               background: Container(color: Colors.red),
               direction: DismissDirection.endToStart,
               onDismissed: (direction) => _delete(context, job),
-              key: Key("job-$job.id"),
+              key: Key("job-${job.id}"),
               child: JobListTile(
                 job: job,
                 onTap: () => EditJobPage.show(
