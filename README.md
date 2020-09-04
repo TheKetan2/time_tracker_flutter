@@ -2,6 +2,6 @@
 
 
 ![Login](./images/login.png)
-![](./images/one.png)
-![](./images/two.png)
-![](./images/three.png)
+![Jobs](./images/one.png)
+![Task](./images/two.png)
+![Edit](./images/three.png)
