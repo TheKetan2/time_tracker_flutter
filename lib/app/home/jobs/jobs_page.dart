@@ -10,6 +10,7 @@ import 'package:time_tracker_flutter/services/auth.dart';
 import 'package:time_tracker_flutter/services/database.dart';
 import 'edit_job_page.dart';
 import "empty_contents.dart";
+import "../job_entries/job_entries_page.dart";
 
 class JobsPage extends StatelessWidget {
   Future<void> _signOut(BuildContext context) async {
@@ -90,10 +91,7 @@ class JobsPage extends StatelessWidget {
               key: Key("job-${job.id}"),
               child: JobListTile(
                 job: job,
-                onTap: () => EditJobPage.show(
-                  context,
-                  job: job,
-                ),
+                onTap: () => JobEntriesPage.show(context, job),
               ),
             ),
           );
