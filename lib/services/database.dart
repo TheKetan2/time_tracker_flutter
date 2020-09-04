@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:meta/meta.dart';
+import "package:flutter/material.dart";
 import 'package:time_tracker_flutter/app/home/models/entry.dart';
 import 'package:time_tracker_flutter/app/home/models/job.dart';
 import 'package:time_tracker_flutter/services/api_path.dart';
@@ -14,6 +15,7 @@ abstract class Database {
   Future<void> setEntry(Entry entry);
   Future<void> deleteEntry(Entry entry);
   Stream<List<Entry>> entriesStream({Job job});
+  Stream<Job> jobStream({@required String jobId});
 }
 
 String documentIdFromCurrentDate() => DateTime.now().toIso8601String();
@@ -42,6 +44,11 @@ class FirestoreDatabase implements Database {
     // delete job
     await _service.deleteData(path: APIPath.job(uid, job.id));
   }
+
+  @override
+  Stream<Job> jobStream({@required String jobId}) => _service.documentStream(
+      path: APIPath.job(uid, jobId),
+      builder: (data, documentId) => Job.fromMap(data, documentId));
 
   @override
   Stream<List<Job>> jobsStream() => _service.collectionStream(
